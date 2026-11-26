@@ -216,8 +216,8 @@ textarea{min-height:120px;resize:vertical}
 .ety::after{content:"";position:absolute;inset:10px;border:1px solid #e6ddd2;border-radius:10px;pointer-events:none}
 .ety .kr{z-index:1}
 /* obrazy w bialych ramkach */
-.krem .ob button,.ramki .ob button{background:#fff;padding:10px;border-radius:12px;box-shadow:0 1px 0 rgba(60,45,30,.06),0 10px 26px rgba(60,45,30,.08)}
-.krem .ob img,.ramki .ob img{border-radius:4px}
+.krem .ob button,.ramki .ob button{background:#fff;padding:5px;border-radius:8px;box-shadow:0 1px 0 rgba(60,45,30,.06),0 10px 26px rgba(60,45,30,.08)}
+.krem .ob img,.ramki .ob img{border-radius:3px}
 .krem .ob figcaption{color:#5d5348}
 .krem .ob figcaption em{color:#8a5a00}
 .panel{background:#fff;border-radius:var(--r);padding:clamp(24px,3vw,44px)}
@@ -265,8 +265,8 @@ textarea{min-height:120px;resize:vertical}
 .wiz h1 span{display:block;font-family:var(--sans);font-weight:400;font-size:.36em;letter-spacing:.08em;margin-top:.7em;color:#7a6f63}
 .wiz .lead{margin:20px 0 6px;font-size:clamp(17px,1.15vw,19px);max-width:42ch}
 .wiz .haslo{margin:16px 0 26px;font-size:clamp(15px,1.05vw,18px)}
-.rama{position:relative;background:#fff;border-radius:22px;padding:clamp(10px,1vw,16px);aspect-ratio:1.4;width:100%;max-height:calc(100svh - var(--hd) - 2*clamp(24px,3.4vw,56px));max-width:calc((100svh - var(--hd) - 2*clamp(24px,3.4vw,56px))*1.4);justify-self:end;box-shadow:0 18px 50px rgba(60,45,30,.12)}
-.rama img{position:absolute;inset:clamp(10px,1vw,16px);width:calc(100% - 2*clamp(10px,1vw,16px));height:calc(100% - 2*clamp(10px,1vw,16px));object-fit:contain;border-radius:8px;opacity:0;transition:opacity 1.6s ease}
+.rama{position:relative;background:#fff;border-radius:14px;padding:clamp(5px,.5vw,8px);aspect-ratio:1.4;width:100%;max-height:calc(100svh - var(--hd) - 2*clamp(24px,3.4vw,56px));max-width:calc((100svh - var(--hd) - 2*clamp(24px,3.4vw,56px))*1.4);justify-self:end;box-shadow:0 18px 50px rgba(60,45,30,.12)}
+.rama img{position:absolute;inset:clamp(5px,.5vw,8px);width:calc(100% - 2*clamp(5px,.5vw,8px));height:calc(100% - 2*clamp(5px,.5vw,8px));object-fit:contain;border-radius:4px;opacity:0;transition:opacity 1.6s ease}
 .rama img.on{opacity:1}
 @media (min-width:2200px){.rama{max-height:1060px;max-width:1484px}}
 @media (prefers-reduced-motion:reduce){.rama img{transition:none}}
@@ -286,3 +286,53 @@ textarea{min-height:120px;resize:vertical}
 @media (max-width:760px){.wiz{border-radius:18px;padding:30px 22px 26px}.wiz::after{inset:8px;border-radius:12px}.wiz .kr{left:22px}.baner{grid-template-columns:minmax(0,1fr)}.start{padding:16px 0 28px}}
 
 @media (max-width:760px){.ety{border-radius:0;outline:0}.ety::after{display:none}.siatka{--h:150px;gap:14px}}
+
+/* 26.11: kwadraciki pokazu na starcie */
+.kw{position:absolute;top:calc(clamp(5px,.5vw,8px) + 10px);right:calc(clamp(5px,.5vw,8px) + 10px);z-index:2;display:flex;gap:1px;padding:2px 4px;background:rgba(255,255,255,.86);border-radius:7px;box-shadow:0 2px 10px rgba(40,30,20,.12)}
+.kw button{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.kw button::before{content:"";width:9px;height:9px;border:1.5px solid #c8b8a4;background:#fff;transition:background .3s,border-color .3s}
+.kw button:hover::before{border-color:var(--or)}
+.kw button.on::before{background:var(--or);border-color:var(--or)}
+.kw button:nth-child(1).on::before,.kw button:nth-child(4).on::before{background:var(--bl);border-color:var(--bl)}
+.kw button:nth-child(2).on::before,.kw button:nth-child(5).on::before{background:var(--ye);border-color:var(--ye)}
+
+/* 26.11: telefon - caly pierwszy ekran w jednym oknie, obraz jak najwiekszy */
+@media (max-width:760px){
+.start{padding:0}
+.start .start-in{width:100%;display:flex;flex-direction:column;justify-content:center;gap:12px;min-height:calc(100svh - var(--hd));padding:8px 0 14px}
+.rama{order:-1;flex:1 1 0;width:calc(100% - 16px);margin:0 auto;aspect-ratio:auto;min-height:180px;max-height:calc((100vw - 16px)/1.4);max-width:none;border-radius:10px;box-shadow:0 8px 24px rgba(60,45,30,.12)}
+.rama img{border-radius:3px}
+.kw{top:11px;right:11px;padding:1px 2px;gap:0}
+.kw button{width:19px;height:22px}
+.kw button::before{width:8px;height:8px}
+.wiz{margin:0 8px;border-radius:16px;padding:20px 20px 18px}
+.wiz::after{inset:6px;border-radius:11px}
+.wiz .kr{left:20px;height:8px;width:150px}
+.wiz h1{font-size:clamp(27px,7.6vw,32px)}
+.wiz h1 span{font-size:12.5px;letter-spacing:.06em;margin-top:.5em}
+.wiz .lead{margin:10px 0 0;font-size:15px;line-height:1.5}
+.wiz .haslo{margin:10px 0 14px;font-size:13px}
+.wiz .btn{padding:11px 20px;font-size:16px}
+.siatka{--h:260px;gap:14px}
+.ob figcaption{font-size:14px;padding-top:9px}
+.ob figcaption b{font-size:16px}
+}
+@media (max-width:760px) and (max-height:600px){
+.wiz .lead .dr{display:none}
+.wiz .haslo{display:none}
+.wiz .btn{margin-top:14px}
+}
+@media (max-width:760px) and (min-height:780px){
+.start .start-in{gap:16px}
+.wiz{padding:24px 22px 22px}
+.wiz h1{font-size:clamp(30px,8.4vw,36px)}
+.wiz h1 span{font-size:13.5px}
+.wiz .lead{font-size:16px;margin-top:12px}
+.wiz .haslo{font-size:14px;margin:12px 0 18px}
+.wiz .btn{padding:13px 22px}
+}
+@media (min-width:1200px){.kw button{width:26px;height:26px}.kw button::before{width:11px;height:11px}}
+@media (max-width:760px){.siatka::after{display:none}}
+@media (max-width:560px){.stopka .wrap{grid-template-columns:minmax(0,1fr);gap:18px}.stopka nav{grid-row:auto;gap:10px 22px}.stopka .pr{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;border-top:1px solid var(--line);padding-top:16px}}
+form{border-radius:var(--r,16px)}
+input,select,textarea{border-radius:8px}

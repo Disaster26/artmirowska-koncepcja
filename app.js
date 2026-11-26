@@ -51,14 +51,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 (function(){
   var r=document.getElementById('pokaz');if(!r)return;
-  var im=[].slice.call(r.querySelectorAll('img')),i=0,t=0;
+  var im=[].slice.call(r.querySelectorAll('img')),i=0,t=0,cel=-1,ruch=!matchMedia('(prefers-reduced-motion:reduce)').matches;
   function laduj(x){if(x&&x.dataset.src){x.srcset=x.dataset.srcset;x.src=x.dataset.src;x.removeAttribute('data-src')}}
-  if(im.length<2||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  setTimeout(function(){laduj(im[1])},1500);
-  function dalej(){var n=(i+1)%im.length,nx=im[n];laduj(im[(n+1)%im.length]);
-    function pokaz(){im[i].classList.remove('on');nx.classList.add('on');i=n}
+  if(im.length<2)return;
+  /* kwadraciki: ktory obraz jest widoczny, klik = przejscie */
+  var kw=document.createElement('div');kw.className='kw';kw.setAttribute('role','group');kw.setAttribute('aria-label','Wybór obrazu');
+  var bt=im.map(function(x,n){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Obraz '+(n+1)+' z '+im.length);
+    b.addEventListener('click',function(){idz(n);start()});kw.appendChild(b);return b});
+  r.appendChild(kw);
+  function zaznacz(){bt.forEach(function(b,n){b.classList.toggle('on',n===i);b.setAttribute('aria-current',n===i?'true':'false')})}
+  function idz(n){if(n===i)return;var nx=im[n];cel=n;laduj(nx);laduj(im[(n+1)%im.length]);
+    function pokaz(){if(cel!==n)return;im[i].classList.remove('on');nx.classList.add('on');i=n;zaznacz()}
     if(nx.complete&&nx.naturalWidth)pokaz();else nx.addEventListener('load',pokaz,{once:true})}
-  function start(){clearInterval(t);t=setInterval(dalej,5500)}
+  zaznacz();
+  function start(){clearInterval(t);if(ruch)t=setInterval(function(){idz((i+1)%im.length)},5500)}
+  if(ruch)setTimeout(function(){laduj(im[1])},1500);
   document.addEventListener('visibilitychange',function(){if(document.hidden)clearInterval(t);else start()});
   start();
 })();
