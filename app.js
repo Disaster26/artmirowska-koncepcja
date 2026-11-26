@@ -64,6 +64,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     function pokaz(){if(cel!==n)return;im[i].classList.remove('on');nx.classList.add('on');i=n;zaznacz()}
     if(nx.complete&&nx.naturalWidth)pokaz();else nx.addEventListener('load',pokaz,{once:true})}
   zaznacz();
+  /* telefon: wysokosc ramy = najwyzszy obraz na pelna szerokosc, ale nie wiecej niz wolne miejsce nad wizytowka */
+  var mq=matchMedia('(max-width:760px)'),wz=document.querySelector('.wiz'),hd=document.querySelector('.top'),pr=document.createElement('div');
+  pr.style.cssText='position:absolute;visibility:hidden;height:100svh;width:0;top:0';document.body.appendChild(pr);
+  function kw_poz(){var x=im[i];if(!mq.matches){kw.style.top=kw.style.right='';return}
+    var w=x.offsetWidth,h=x.offsetHeight;kw.style.top='10px';kw.style.right=((r.clientWidth-w)/2+10)+'px'}
+  function wys(){if(!mq.matches){r.style.height='';kw_poz();return}
+    var W=r.clientWidth,mx=0;im.forEach(function(x){var q=(+x.getAttribute('width'))/(+x.getAttribute('height'));if(q)mx=Math.max(mx,W/q)});
+    var wolne=(pr.offsetHeight||innerHeight)-(hd?hd.offsetHeight:0)-(wz?wz.offsetHeight:0)-8-12-14;
+    r.style.height=Math.round(Math.max(180,Math.min(mx,wolne)))+'px';kw_poz()}
+  wys();addEventListener('resize',wys);addEventListener('load',wys);
+  var zz=zaznacz;zaznacz=function(){zz();kw_poz()};
   function start(){clearInterval(t);if(ruch)t=setInterval(function(){idz((i+1)%im.length)},5500)}
   if(ruch)setTimeout(function(){laduj(im[1])},1500);
   document.addEventListener('visibilitychange',function(){if(document.hidden)clearInterval(t);else start()});

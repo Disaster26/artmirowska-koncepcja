@@ -336,3 +336,11 @@ textarea{min-height:120px;resize:vertical}
 @media (max-width:560px){.stopka .wrap{grid-template-columns:minmax(0,1fr);gap:18px}.stopka nav{grid-row:auto;gap:10px 22px}.stopka .pr{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;border-top:1px solid var(--line);padding-top:16px}}
 form{border-radius:var(--r,16px)}
 input,select,textarea{border-radius:8px}
+/* 26.11 b: telefon - hero od gory, wysokosc ramy liczona w app.js wg proporcji obrazow */
+@media (max-width:760px){
+.start .start-in{justify-content:flex-start;padding-top:8px}
+.rama{flex:none;height:calc((100vw - 16px)/1.4);max-height:none;min-height:0;background:none;box-shadow:none;padding:0;border-radius:0}
+.rama img{inset:0;margin:auto;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:fill;border:5px solid #fff;border-radius:10px;box-shadow:0 8px 24px rgba(60,45,30,.12);background:#fff}
+.kw{top:auto;right:auto;position:absolute}
+}
+@media (max-width:760px){.rama img{inset:0 0 auto 0;margin:0 auto}}
