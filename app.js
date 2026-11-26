@@ -73,21 +73,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   var KROP=0.82;
   function q_(x){return (+x.getAttribute('width'))/(+x.getAttribute('height'))||1.4}
   function kr_(x){return +x.dataset.krop||KROP}
+  var sloty=wz?[[wz,'paddingTop'],[wz,'paddingBottom'],[wz.querySelector('.lead'),'marginTop'],[wz.querySelector('.haslo'),'marginTop'],[wz.querySelector('.haslo'),'marginBottom']].filter(function(z){return z[0]}):[];
   function wys(){
     im.forEach(function(x){x.style.width=x.style.height=x.style.maxHeight=x.style.objectFit=x.style.objectPosition=''});
-    if(wz)wz.style.paddingTop=wz.style.paddingBottom='';var bt_=wz&&wz.querySelector('.btn');if(bt_)bt_.style.marginTop='';
+    sloty.forEach(function(z){z[0].style[z[1]]=''});
     if(!mq.matches){r.style.height='';kw_poz();return}
     var W=r.clientWidth,caps=[];
     var wolne=(pr.offsetHeight||innerHeight)-(hd?hd.offsetHeight:0)-(wz?wz.offsetHeight:0)-8-12-24;
     im.forEach(function(x){var q=q_(x);if(q>1)caps.push(W/(kr_(x)*q))});
-    var H=Math.round(Math.max(180,Math.min(wolne,caps.length?Math.max.apply(null,caps):W/1.4)));
-    /* nadmiar miejsca (wysokie telefony): polowa do ramy (obrazy pionowe rosna), polowa jako oddech w wizytowce */
-    var L=Math.min(240,wolne-H);
-    if(L>4){var dr=Math.round(L*.5);H+=dr;L-=dr;
-      if(wz){var cs=getComputedStyle(wz),e=Math.round(L/4);
-        wz.style.paddingTop=Math.round(parseFloat(cs.paddingTop)+e)+'px';wz.style.paddingBottom=Math.round(parseFloat(cs.paddingBottom)+e)+'px';
-        if(bt_)bt_.style.marginTop=Math.round(e*2)+'px'}}
+    caps.sort(function(a,b){return a-b});
+    /* wysokosc ramy = typowy (mediana) obraz poziomy z kadrem do ok. 18%, nie wiecej niz wolne miejsce */
+    var H=Math.round(Math.max(180,Math.min(wolne,caps.length?caps[caps.length>>1]:W/1.4)));
     r.style.height=H+'px';
+    /* nadmiar miejsca (wysokie telefony) rozlozony rowno w wizytowce, zeby konczyla sie tuz nad dolem ekranu */
+    var L=wolne-H,ok=sloty.filter(function(z){return z[0].offsetParent!==null});
+    if(L>4&&ok.length){var e=Math.min(36,L/ok.length);ok.forEach(function(z){z[0].style[z[1]]=Math.round(parseFloat(getComputedStyle(z[0])[z[1]])+e)+'px'})}
     im.forEach(function(x){var q=q_(x);if(q<=1||H<=W/q)return;
       x.style.width='100%';x.style.height=Math.round(Math.min(H,W/(kr_(x)*q)))+'px';x.style.maxHeight='none';x.style.objectFit='cover';x.style.objectPosition=x.dataset.pos||'50% 50%'});
     kw_poz()}
