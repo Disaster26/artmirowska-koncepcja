@@ -349,3 +349,12 @@ input,select,textarea{border-radius:8px}
 .rama img{inset:0;margin:auto;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:fill;border:clamp(5px,.5vw,8px) solid #fff;border-radius:10px;background:#fff;box-shadow:0 18px 50px rgba(60,45,30,.12)}
 @media (max-width:760px){.rama img{inset:0 0 auto 0;margin:0 auto;border-width:5px;box-shadow:0 8px 24px rgba(60,45,30,.12)}}
 @media (max-width:760px){.rama img{inset:0;margin:auto}}
+/* 26.11 e: przesuwanie pokazu */
+.rama{touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.rama img{transition:opacity 1.6s ease,transform .35s ease;-webkit-user-drag:none}
+.rama.ciag{cursor:grabbing}.rama.ciag img{transition:opacity 1.6s ease}
+.rama.szybko img{transition:opacity .6s ease,transform .35s ease}
+.rama .kw{cursor:default}
+@media (max-width:760px){.start .start-in{padding-bottom:20px}}
+@media (prefers-reduced-motion:reduce){.rama img,.rama.szybko img{transition:none}}
+@media (max-width:760px){.rama img{inset:0 0 auto 0;margin:0 auto}}
