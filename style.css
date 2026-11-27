@@ -366,3 +366,8 @@ input,select,textarea{border-radius:8px}
 .wn-gal .ob figcaption b{color:#fff}
 .wn-soc{padding:clamp(28px,3vw,44px) 0 clamp(56px,7vw,104px)}
 .wn-soc .soc{margin:0}
+
+/* link do galerii, w ktorej obraz jest wystawiony: <a class="gal" href="...">wystawiony: nazwa galerii</a> w figcaption */
+.ob figcaption a.gal{display:inline-block;margin-top:4px;font-size:14px;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--ye);padding-bottom:1px}
+.ob figcaption a.gal:hover{border-bottom-color:var(--ink)}
+.lb figcaption a.gal{display:inline-block;margin-top:6px;color:#fff;text-decoration:none;border-bottom:2px solid var(--ye)}
