@@ -27,7 +27,7 @@ function init(){
     var big=new Image();tm=setTimeout(function(){big.onload=function(){if(grp[ix]===b)lbi.src=big.src};big.src=b.dataset.src},120);
     lbc.textContent=b.dataset.cap+(grp.length>1?'  ('+(ix+1)+' / '+grp.length+')':'');
     var fg=b.closest('figure'),g=fg&&fg.querySelector('a.gal');if(g){lbc.appendChild(document.createElement('br'));lbc.appendChild(g.cloneNode(true))}}
-  function otworz(b){grp=[].slice.call(document.querySelectorAll('[data-lb="'+b.dataset.lb+'"]'));ix=grp.indexOf(b);last=b;pokaz();lb.classList.add('on');document.body.style.overflow='hidden';lb.querySelector('.x').focus();var m=grp.length>1;lb.querySelector('.p').hidden=!m;lb.querySelector('.n').hidden=!m}
+  function otworz(b){grp=[].slice.call(document.querySelectorAll('[data-lb="'+b.dataset.lb+'"]')).filter(function(x){return !x.closest('[hidden]')});ix=grp.indexOf(b);last=b;pokaz();lb.classList.add('on');document.body.style.overflow='hidden';lb.querySelector('.x').focus();var m=grp.length>1;lb.querySelector('.p').hidden=!m;lb.querySelector('.n').hidden=!m}
   function zam(){lb.classList.remove('on');document.body.style.overflow='';clearTimeout(tm);lbi.removeAttribute('src');if(last)last.focus()}
   function kr(d){ix=(ix+d+grp.length)%grp.length;pokaz()}
   document.querySelectorAll('[data-lb]').forEach(function(b){b.addEventListener('click',function(){otworz(b)})});
@@ -36,6 +36,10 @@ function init(){
   lb.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX},{passive:true});
   lb.addEventListener('touchend',function(e){if(tx0===null)return;var d=e.changedTouches[0].clientX-tx0;if(Math.abs(d)>50&&grp.length>1)kr(d<0?1:-1);tx0=null});
   document.addEventListener('keydown',function(e){if(lb.classList.contains('on')){if(e.key==='Escape')zam();if(e.key==='ArrowRight')kr(1);if(e.key==='ArrowLeft')kr(-1)}else if(e.key==='Escape')zamknij()});
+  /* filtr galerii obrazow */
+  document.querySelectorAll('.flt').forEach(function(fl){var bs=fl.querySelectorAll('button'),fig=fl.parentNode.querySelectorAll('.siatka .ob[data-st]');
+    [].forEach.call(bs,function(b){b.addEventListener('click',function(){var k=b.dataset.f;[].forEach.call(bs,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+      [].forEach.call(fig,function(x){x.hidden=!!k&&x.dataset.st!==k});dispatchEvent(new Event('scroll'))})})});
   var f=document.getElementById('form'),msg=document.getElementById('msg');
   if(f)f.addEventListener('submit',function(e){e.preventDefault();var ok=true;[].forEach.call(f.querySelectorAll('[required]'),function(i){var v=i.type==='checkbox'?(i.checked?'1':''):i.value.trim();var bad=!v;i.setAttribute('aria-invalid',bad);if(bad&&ok){ok=false;i.focus()}});if(!ok)return;msg.hidden=false;f.reset();msg.scrollIntoView({block:'nearest',behavior:'smooth'})});
   var lz=[].slice.call(document.querySelectorAll('img[data-src]'));
