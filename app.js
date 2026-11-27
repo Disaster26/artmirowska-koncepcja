@@ -52,7 +52,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (function(){
   var r=document.getElementById('pokaz');if(!r)return;
   var im=[].slice.call(r.querySelectorAll('img')),i=0,t=0,cel=-1,ruch=!matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function laduj(x){if(x&&x.dataset.src){x.srcset=x.dataset.srcset;x.src=x.dataset.src;x.removeAttribute('data-src')}}
+  function laduj(x){if(x&&x.dataset.src){x.loading='eager';x.srcset=x.dataset.srcset;x.src=x.dataset.src;x.removeAttribute('data-src')}}
   if(im.length<2)return;
   /* kwadraciki: ktory obraz jest widoczny, klik = przejscie */
   var kw=document.createElement('div');kw.className='kw';kw.setAttribute('role','group');kw.setAttribute('aria-label','Wybór obrazu');
@@ -106,8 +106,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   r.addEventListener('pointercancel',function(e){puszczony(e,true)});
   r.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')puszczony(e,false)});
   var zz=zaznacz;zaznacz=function(){zz();kw_poz()};
-  function start(){clearInterval(t);if(ruch)t=setInterval(function(){idz((i+1)%im.length)},5500)}
-  if(ruch)setTimeout(function(){laduj(im[1])},1500);
+  /* pokaz zmienia obrazy sam takze na telefonie; przy ograniczonym ruchu wolniej i samym przenikaniem (bez przesuwania) */
+  function start(){clearInterval(t);t=setInterval(function(){if(!document.hidden)idz((i+1)%im.length)},ruch?5500:8000)}
+  setTimeout(function(){laduj(im[1])},1200);
   document.addEventListener('visibilitychange',function(){if(document.hidden)clearInterval(t);else start()});
   start();
 })();

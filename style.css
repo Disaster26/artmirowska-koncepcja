@@ -269,7 +269,7 @@ textarea{min-height:120px;resize:vertical}
 .rama img{position:absolute;inset:clamp(5px,.5vw,8px);width:calc(100% - 2*clamp(5px,.5vw,8px));height:calc(100% - 2*clamp(5px,.5vw,8px));object-fit:contain;border-radius:4px;opacity:0;transition:opacity 1.6s ease}
 .rama img.on{opacity:1}
 @media (min-width:2200px){.rama{max-height:1060px;max-width:1484px}}
-@media (prefers-reduced-motion:reduce){.rama img{transition:none}}
+
 .om .dz{grid-template-columns:minmax(0,1fr)}
 .om:has(.dz){align-items:start}
 .btn{border-radius:10px}
@@ -356,5 +356,13 @@ input,select,textarea{border-radius:8px}
 .rama.szybko img{transition:opacity .6s ease,transform .35s ease}
 .rama .kw{cursor:default}
 @media (max-width:760px){.start .start-in{padding-bottom:20px}}
-@media (prefers-reduced-motion:reduce){.rama img,.rama.szybko img{transition:none}}
+@media (prefers-reduced-motion:reduce){.rama img,.rama.szybko img{transition:opacity 1.2s ease}}
 @media (max-width:760px){.rama img{inset:0 0 auto 0;margin:0 auto}}
+/* architektura: zdjecia projektow na granatowym tle */
+.wn-tyt{padding-bottom:clamp(28px,3.4vw,48px)}
+.wn-gal{padding:clamp(40px,5vw,80px) 0}
+.wn-gal .ramki .ob button{background:#fff;box-shadow:0 14px 34px rgba(0,0,0,.32)}
+.wn-gal .ob figcaption{color:#b8c7d1}
+.wn-gal .ob figcaption b{color:#fff}
+.wn-soc{padding:clamp(28px,3vw,44px) 0 clamp(56px,7vw,104px)}
+.wn-soc .soc{margin:0}
