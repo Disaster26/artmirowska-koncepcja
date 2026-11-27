@@ -380,3 +380,4 @@ input,select,textarea{border-radius:8px}
 .flt button[aria-pressed=true] span{color:#d7e6ea}
 .siatka .ob[hidden]{display:none}
 @media (max-width:760px){.flt{gap:8px}.flt button{font-size:14px;padding:8px 13px}}
+.lb figcaption .lb-st{display:inline-block;margin-top:6px;color:#f3c26b}.lb figcaption .lb-st.nie{color:#b8c0c6}
